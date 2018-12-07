@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="baseMapper">
+	<!-- 新增记录公共字段 -->
+	<sql id="insertGgzd">
+        LAST_UPDATE_DATE
+	</sql>
+	<!-- 新增记录公共字段值 -->
+	<sql id="insertGgzdVal">
+        CURRENT_TIMESTAMP
+    </sql>
+	<!-- 修改记录公共字段 -->
+	<sql id="updateGgzd">
+        LAST_UPDATE_DATE = CURRENT_TIMESTAMP
+	</sql>
+</mapper>
