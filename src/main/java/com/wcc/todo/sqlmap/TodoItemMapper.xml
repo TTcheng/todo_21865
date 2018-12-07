@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wcc.todo.mapper.TodoItemMapper">
+  <resultMap id="BaseResultMap" type="com.wcc.todo.entity.TodoItem">
+    <id column="TODO_ITEM_ID" jdbcType="DECIMAL" property="todoItemId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="TODO_ITEM_TITLE" jdbcType="VARCHAR" property="todoItemTitle" />
+    <result column="TODO_TIEM_CONTENT" jdbcType="VARCHAR" property="todoTiemContent" />
+    <result column="PRIORITY" jdbcType="VARCHAR" property="priority" />
+    <result column="CREATION_DATE" jdbcType="TIMESTAMP" property="creationDate" />
+    <result column="LAST_UPDATE_DATE" jdbcType="TIMESTAMP" property="lastUpdateDate" />
+    <result column="COMMENTS" jdbcType="VARCHAR" property="comments" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TODO_ITEM_ID, USER_ID, TODO_ITEM_TITLE, TODO_TIEM_CONTENT, PRIORITY, CREATION_DATE, 
+    LAST_UPDATE_DATE, COMMENTS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CUX_TODO_ITEMS
+    where TODO_ITEM_ID = #{todoItemId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from CUX_TODO_ITEMS
+    where TODO_ITEM_ID = #{todoItemId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.wcc.todo.entity.TodoItem">
+    insert into CUX_TODO_ITEMS (TODO_ITEM_ID, USER_ID, TODO_ITEM_TITLE, 
+      TODO_TIEM_CONTENT, PRIORITY, CREATION_DATE, 
+      LAST_UPDATE_DATE, COMMENTS)
+    values (#{todoItemId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{todoItemTitle,jdbcType=VARCHAR}, 
+      #{todoTiemContent,jdbcType=VARCHAR}, #{priority,jdbcType=VARCHAR}, #{creationDate,jdbcType=TIMESTAMP}, 
+      #{lastUpdateDate,jdbcType=TIMESTAMP}, #{comments,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wcc.todo.entity.TodoItem">
+    insert into CUX_TODO_ITEMS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="todoItemId != null">
+        TODO_ITEM_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="todoItemTitle != null">
+        TODO_ITEM_TITLE,
+      </if>
+      <if test="todoTiemContent != null">
+        TODO_TIEM_CONTENT,
+      </if>
+      <if test="priority != null">
+        PRIORITY,
+      </if>
+      <if test="creationDate != null">
+        CREATION_DATE,
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE,
+      </if>
+      <if test="comments != null">
+        COMMENTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="todoItemId != null">
+        #{todoItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="todoItemTitle != null">
+        #{todoItemTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="todoTiemContent != null">
+        #{todoTiemContent,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null">
+        #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateDate != null">
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wcc.todo.entity.TodoItem">
+    update CUX_TODO_ITEMS
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="todoItemTitle != null">
+        TODO_ITEM_TITLE = #{todoItemTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="todoTiemContent != null">
+        TODO_TIEM_CONTENT = #{todoTiemContent,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        PRIORITY = #{priority,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null">
+        CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comments != null">
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TODO_ITEM_ID = #{todoItemId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wcc.todo.entity.TodoItem">
+    update CUX_TODO_ITEMS
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      TODO_ITEM_TITLE = #{todoItemTitle,jdbcType=VARCHAR},
+      TODO_TIEM_CONTENT = #{todoTiemContent,jdbcType=VARCHAR},
+      PRIORITY = #{priority,jdbcType=VARCHAR},
+      CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      COMMENTS = #{comments,jdbcType=VARCHAR}
+    where TODO_ITEM_ID = #{todoItemId,jdbcType=DECIMAL}
+  </update>
+  <resultMap id="BaseResultMap" type="com.wcc.todo.entity.TodoItem">
+    <id column="TODO_ITEM_ID" jdbcType="DECIMAL" property="todoItemId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="TODO_ITEM_TITLE" jdbcType="VARCHAR" property="todoItemTitle" />
+    <result column="TODO_TIEM_CONTENT" jdbcType="VARCHAR" property="todoTiemContent" />
+    <result column="PRIORITY" jdbcType="VARCHAR" property="priority" />
+    <result column="CREATION_DATE" jdbcType="TIMESTAMP" property="creationDate" />
+    <result column="LAST_UPDATE_DATE" jdbcType="TIMESTAMP" property="lastUpdateDate" />
+    <result column="COMMENTS" jdbcType="VARCHAR" property="comments" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TODO_ITEM_ID, USER_ID, TODO_ITEM_TITLE, TODO_TIEM_CONTENT, PRIORITY, CREATION_DATE, 
+    LAST_UPDATE_DATE, COMMENTS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CUX_TODO_ITEMS
+    where TODO_ITEM_ID = #{todoItemId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from CUX_TODO_ITEMS
+    where TODO_ITEM_ID = #{todoItemId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.wcc.todo.entity.TodoItem">
+    insert into CUX_TODO_ITEMS (TODO_ITEM_ID, USER_ID, TODO_ITEM_TITLE, 
+      TODO_TIEM_CONTENT, PRIORITY, CREATION_DATE, 
+      LAST_UPDATE_DATE, COMMENTS)
+    values (#{todoItemId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{todoItemTitle,jdbcType=VARCHAR}, 
+      #{todoTiemContent,jdbcType=VARCHAR}, #{priority,jdbcType=VARCHAR}, #{creationDate,jdbcType=TIMESTAMP}, 
+      #{lastUpdateDate,jdbcType=TIMESTAMP}, #{comments,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wcc.todo.entity.TodoItem">
+    insert into CUX_TODO_ITEMS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="todoItemId != null">
+        TODO_ITEM_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="todoItemTitle != null">
+        TODO_ITEM_TITLE,
+      </if>
+      <if test="todoTiemContent != null">
+        TODO_TIEM_CONTENT,
+      </if>
+      <if test="priority != null">
+        PRIORITY,
+      </if>
+      <if test="creationDate != null">
+        CREATION_DATE,
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE,
+      </if>
+      <if test="comments != null">
+        COMMENTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="todoItemId != null">
+        #{todoItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="todoItemTitle != null">
+        #{todoItemTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="todoTiemContent != null">
+        #{todoTiemContent,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null">
+        #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateDate != null">
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wcc.todo.entity.TodoItem">
+    update CUX_TODO_ITEMS
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="todoItemTitle != null">
+        TODO_ITEM_TITLE = #{todoItemTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="todoTiemContent != null">
+        TODO_TIEM_CONTENT = #{todoTiemContent,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        PRIORITY = #{priority,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null">
+        CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comments != null">
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TODO_ITEM_ID = #{todoItemId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wcc.todo.entity.TodoItem">
+    update CUX_TODO_ITEMS
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      TODO_ITEM_TITLE = #{todoItemTitle,jdbcType=VARCHAR},
+      TODO_TIEM_CONTENT = #{todoTiemContent,jdbcType=VARCHAR},
+      PRIORITY = #{priority,jdbcType=VARCHAR},
+      CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      COMMENTS = #{comments,jdbcType=VARCHAR}
+    where TODO_ITEM_ID = #{todoItemId,jdbcType=DECIMAL}
+  </update>
+  <resultMap id="BaseResultMap" type="com.wcc.todo.entity.TodoItem">
+    <id column="TODO_ITEM_ID" jdbcType="DECIMAL" property="todoItemId" />
+    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+    <result column="TODO_ITEM_TITLE" jdbcType="VARCHAR" property="todoItemTitle" />
+    <result column="TODO_TIEM_CONTENT" jdbcType="VARCHAR" property="todoTiemContent" />
+    <result column="PRIORITY" jdbcType="VARCHAR" property="priority" />
+    <result column="CREATION_DATE" jdbcType="TIMESTAMP" property="creationDate" />
+    <result column="LAST_UPDATE_DATE" jdbcType="TIMESTAMP" property="lastUpdateDate" />
+    <result column="COMMENTS" jdbcType="VARCHAR" property="comments" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TODO_ITEM_ID, USER_ID, TODO_ITEM_TITLE, TODO_TIEM_CONTENT, PRIORITY, CREATION_DATE, 
+    LAST_UPDATE_DATE, COMMENTS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CUX_TODO_ITEMS
+    where TODO_ITEM_ID = #{todoItemId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from CUX_TODO_ITEMS
+    where TODO_ITEM_ID = #{todoItemId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.wcc.todo.entity.TodoItem">
+    insert into CUX_TODO_ITEMS (TODO_ITEM_ID, USER_ID, TODO_ITEM_TITLE, 
+      TODO_TIEM_CONTENT, PRIORITY, CREATION_DATE, 
+      LAST_UPDATE_DATE, COMMENTS)
+    values (#{todoItemId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{todoItemTitle,jdbcType=VARCHAR}, 
+      #{todoTiemContent,jdbcType=VARCHAR}, #{priority,jdbcType=VARCHAR}, #{creationDate,jdbcType=TIMESTAMP}, 
+      #{lastUpdateDate,jdbcType=TIMESTAMP}, #{comments,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wcc.todo.entity.TodoItem">
+    insert into CUX_TODO_ITEMS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="todoItemId != null">
+        TODO_ITEM_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="todoItemTitle != null">
+        TODO_ITEM_TITLE,
+      </if>
+      <if test="todoTiemContent != null">
+        TODO_TIEM_CONTENT,
+      </if>
+      <if test="priority != null">
+        PRIORITY,
+      </if>
+      <if test="creationDate != null">
+        CREATION_DATE,
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE,
+      </if>
+      <if test="comments != null">
+        COMMENTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="todoItemId != null">
+        #{todoItemId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="todoItemTitle != null">
+        #{todoItemTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="todoTiemContent != null">
+        #{todoTiemContent,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null">
+        #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateDate != null">
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wcc.todo.entity.TodoItem">
+    update CUX_TODO_ITEMS
+    <set>
+      <if test="userId != null">
+        USER_ID = #{userId,jdbcType=DECIMAL},
+      </if>
+      <if test="todoItemTitle != null">
+        TODO_ITEM_TITLE = #{todoItemTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="todoTiemContent != null">
+        TODO_TIEM_CONTENT = #{todoTiemContent,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        PRIORITY = #{priority,jdbcType=VARCHAR},
+      </if>
+      <if test="creationDate != null">
+        CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateDate != null">
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comments != null">
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TODO_ITEM_ID = #{todoItemId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wcc.todo.entity.TodoItem">
+    update CUX_TODO_ITEMS
+    set USER_ID = #{userId,jdbcType=DECIMAL},
+      TODO_ITEM_TITLE = #{todoItemTitle,jdbcType=VARCHAR},
+      TODO_TIEM_CONTENT = #{todoTiemContent,jdbcType=VARCHAR},
+      PRIORITY = #{priority,jdbcType=VARCHAR},
+      CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      COMMENTS = #{comments,jdbcType=VARCHAR}
+    where TODO_ITEM_ID = #{todoItemId,jdbcType=DECIMAL}
+  </update>
+</mapper>

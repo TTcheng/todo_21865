@@ -3,48 +3,47 @@ package com.wcc.todo.entity;
 import com.wcc.base.entity.BaseEntity;
 
 public class TodoItem extends BaseEntity {
-    private static final long serialVersionUID = -4612615635537205840L;
+    private static final long serialVersionUID = -9165365201733239241L;
+    private Short todoItemId;
 
-    private String todo_item_id ;
-    private String user_id ;
-    private String todo_item_title ;
-    private String todo_item_content ;
-    private String priority ;
+    private Short userId;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    private String todoItemTitle;
+
+    private String todoTiemContent;
+
+    private String priority;
+
+    public Short getTodoItemId() {
+        return todoItemId;
     }
 
-    public String getTodo_item_id() {
-        return todo_item_id;
+    public void setTodoItemId(Short todoItemId) {
+        this.todoItemId = todoItemId;
     }
 
-    public void setTodo_item_id(String todo_item_id) {
-        this.todo_item_id = todo_item_id;
+    public Short getUserId() {
+        return userId;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public void setUserId(Short userId) {
+        this.userId = userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public String getTodoItemTitle() {
+        return todoItemTitle;
     }
 
-    public String getTodo_item_title() {
-        return todo_item_title;
+    public void setTodoItemTitle(String todoItemTitle) {
+        this.todoItemTitle = todoItemTitle;
     }
 
-    public void setTodo_item_title(String todo_item_title) {
-        this.todo_item_title = todo_item_title;
+    public String getTodoTiemContent() {
+        return todoTiemContent;
     }
 
-    public String getTodo_item_content() {
-        return todo_item_content;
-    }
-
-    public void setTodo_item_content(String todo_item_content) {
-        this.todo_item_content = todo_item_content;
+    public void setTodoTiemContent(String todoTiemContent) {
+        this.todoTiemContent = todoTiemContent;
     }
 
     public String getPriority() {

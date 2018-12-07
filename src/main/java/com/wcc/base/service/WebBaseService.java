@@ -1,7 +1,8 @@
 package com.wcc.base.service;
 
-import com.wcc.base.utils.DateTimeUtils;
 import com.wcc.base.entity.BaseEntity;
+
+import java.util.Date;
 
 public class WebBaseService {
 
@@ -10,9 +11,7 @@ public class WebBaseService {
 	 * @param entity 新增的对象
 	 */
 	public static void updateCommonProperties(BaseEntity entity) {
-
-		String systemDateTime = DateTimeUtils.getSystemDateTimeString();
-		entity.setLast_update_date(systemDateTime);
+		entity.setLastUpdateDate(new Date());
 
 	}
 	

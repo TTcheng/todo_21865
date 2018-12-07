@@ -3,33 +3,33 @@ package com.wcc.todo.entity;
 import com.wcc.base.entity.BaseEntity;
 
 public class User extends BaseEntity {
-    private static final long serialVersionUID = 3818728043167571620L;
+    private static final long serialVersionUID = -2479340945016653534L;
+    private Short userId;
 
-    private String user_id;
-    private String user_name;
+    private String userName;
+
     private String password;
+
     private String sex;
-    private Integer age;
-    private String phone_number;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    private Short age;
+
+    private String phoneNumber;
+
+    public Short getUserId() {
+        return userId;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public void setUserId(Short userId) {
+        this.userId = userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getUser_name() {
-        return user_name;
-    }
-
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -48,19 +48,19 @@ public class User extends BaseEntity {
         this.sex = sex;
     }
 
-    public Integer getAge() {
+    public Short getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(Short age) {
         this.age = age;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

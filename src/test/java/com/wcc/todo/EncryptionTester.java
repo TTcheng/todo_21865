@@ -1,6 +1,6 @@
 package com.wcc.todo;
 
-import com.wcc.todo.encryption.EncryptionUtils;
+import com.wcc.base.utils.EncryptionUtils;
 import org.junit.Test;
 
 public class EncryptionTester {

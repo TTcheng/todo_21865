@@ -1,4 +1,4 @@
-package com.wcc.todo.encryption;
+package com.wcc.base.utils;
 
 public class EncryptionUtils {
     private static final int cipherlen = 30;//密文长度
