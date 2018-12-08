@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class TodoController extends BaseController {
     @ResponseBody
-    @GetMapping("hello")
+    @GetMapping("/hello")
     public String hello() {
         return "Hello World!";
     }

@@ -1,8 +1,10 @@
-package com.wcc.todo.mapper;
+package com.wcc.todo.dao;
 
 import com.wcc.todo.entity.TodoItem;
+import org.springframework.stereotype.Component;
 
-public interface TodoItemMapper {
+@Component
+public interface TodoItemDao {
     int deleteByPrimaryKey(Short todoItemId);
 
     int insert(TodoItem record);

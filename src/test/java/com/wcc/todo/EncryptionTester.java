@@ -24,4 +24,12 @@ public class EncryptionTester {
             System.out.println("same = " + same);
         }
     }
+
+    @Test
+    public void generatePwd() {
+        String password = "19960314";
+        String ciphertext = EncryptionUtils.encrypt(password);
+        System.out.println("ciphertext = " + ciphertext);
+    }
+
 }

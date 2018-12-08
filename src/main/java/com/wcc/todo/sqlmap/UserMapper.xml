@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wcc.todo.mapper.UserMapper" >
+<mapper namespace="com.wcc.todo.dao.UserDao" >
   <resultMap id="BaseResultMap" type="com.wcc.todo.entity.User" >
     <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
@@ -21,6 +21,12 @@
     <include refid="Base_Column_List" />
     from CUX_USERS
     where USER_ID = #{userId,jdbcType=DECIMAL}
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from CUX_USERS
+    where USER_NAME = #{userName,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
     delete from CUX_USERS

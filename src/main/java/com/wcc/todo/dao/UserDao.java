@@ -1,8 +1,11 @@
-package com.wcc.todo.mapper;
+package com.wcc.todo.dao;
 
+import com.wcc.base.entity.BaseEntity;
 import com.wcc.todo.entity.User;
+import org.springframework.stereotype.Component;
 
-public interface UserMapper {
+@Component
+public interface UserDao {
     int deleteByPrimaryKey(Short userId);
 
     int insert(User record);
@@ -14,4 +17,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    User selectByName(String userName);
 }
