@@ -156,7 +156,34 @@
         }
 
     </style>
-    <!--<script>document.write('\<script src="../js/includeJs.js"\>\<\/script\>');</script>-->
+    <script>document.write('\<script src="../js/includeJs.js"\>\<\/script\>');</script>
+    <script>
+        function doLogin() {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            loading('open','登录中...');
+            $.ajax({
+                url: '/user/login',
+                type: 'post',
+                data: {
+                    username: username,
+                    password: password
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status === 'success') {
+                        $(location).attr('href', basePath+'/html/todo.html');
+                    }else alert(data)
+                },
+                error: function () {
+                    alert("登录失败！");
+                },
+                complete: function () {
+                    loading('close');
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-static-top navbar-default">
@@ -173,36 +200,35 @@
 </nav>
 <div class="login-box clearfix">
 
-    <form action="/user/login" autocomplete="off" id="login_form" method="post">
-        <div class="login-inner-box">
-            <!--<div class="form-box login-title">
-                用户登录
-            </div>
-            -->
-            <!-- 用户名 -->
-            <div class="form-box">
-                <span class="user-icon"></span>
-                <input id="username" name="username" class="logininput" tabindex="1" accesskey="n" type="text" value=""
-                       size="25" placeholder="用户ID/用户名">
-            </div>
-            <!-- 用户名 end -->
-            <!-- 密码 -->
-            <div class="form-box">
-                <span class="pwd-icon"></span>
-                <input id="password" name="password" class="logininput" tabindex="2" accesskey="p" type="password"
-                       value="" size="25" placeholder="密码">
-            </div>
-            <!-- 密码 end -->
-            <div class="form-box sub-box">
-                <input class="submit-btn" id="submit" name="submit" accesskey="l" tabindex="4" type="submit" value="登录">
-            </div>
-            <div class="oprate-box clearfix">
-                <a class="find-yhm" href="../error/unknown.html" target="_blank">找回用户名</a>
-                <a class="find-mm" href="../error/unknown.html" target="_blank">找回密码</a>
-                <a class="regist-btn" href="../error/unknown.html" target="_blank">注册</a>
-            </div>
+    <div class="login-inner-box">
+        <!--<div class="form-box login-title">
+            用户登录
         </div>
-    </form>
+        -->
+        <!-- 用户名 -->
+        <div class="form-box">
+            <span class="user-icon"></span>
+            <input id="username" name="username" class="logininput" tabindex="1" accesskey="n" type="text" value=""
+                   size="25" placeholder="用户ID/用户名">
+        </div>
+        <!-- 用户名 end -->
+        <!-- 密码 -->
+        <div class="form-box">
+            <span class="pwd-icon"></span>
+            <input id="password" name="password" class="logininput" tabindex="2" accesskey="p" type="password"
+                   value="" size="25" placeholder="密码">
+        </div>
+        <!-- 密码 end -->
+        <div class="form-box sub-box">
+            <input class="submit-btn" id="submit" name="submit" accesskey="l" tabindex="4" type="submit" value="登录"
+                   onclick="doLogin()">
+        </div>
+        <div class="oprate-box clearfix">
+            <a class="find-yhm" href="../error/unknown.html" target="_blank">找回用户名</a>
+            <a class="find-mm" href="../error/unknown.html" target="_blank">找回密码</a>
+            <a class="regist-btn" href="../error/unknown.html" target="_blank">注册</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.wcc.todo.controller;
 import com.wcc.base.controller.BaseController;
 import com.wcc.base.utils.EncryptionUtils;
 import com.wcc.base.utils.NumberUtils;
+import com.wcc.todo.entity.AppConst;
 import com.wcc.todo.entity.User;
 import com.wcc.todo.service.UserService;
 import org.slf4j.Logger;
@@ -11,6 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -25,24 +31,33 @@ public class UserController extends BaseController {
      *
      * @param username 用户ID 或 用户名
      * @param password 密码
-     * @return 待办事项管理页
+     * @return 登陆信息
      */
+    @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(String username, String password) {
-        super.validateEmpty("用户名或ID", password);
-        super.validateEmpty("密码", password);
-        User user;
-        if (NumberUtils.isShort(username)) {
-            user = (User) userService.queryUserById(Short.parseShort(username));
-        } else {
-            user = (User) userService.queryUserByName(username);
+    public Map<String, String> login(String username, String password) {
+        Map<String, String> model = new HashMap<>();
+        try {
+            super.validateEmpty("用户名或ID", password);
+            super.validateEmpty("密码", password);
+            User user;
+            if (NumberUtils.isShort(username)) {
+                user = (User) userService.queryUserById(Short.parseShort(username));
+            } else {
+                user = (User) userService.queryUserByName(username);
+            }
+            if (user != null && EncryptionUtils.validate(password, user.getPassword())) {
+                throw new RuntimeException("密码错误！！！请重新输入。");
+            }
+            super.getSession().setAttribute("user", user);
+            model.put(AppConst.STATUS, AppConst.SUCCESS);
+        } catch (Exception e) {
+            model.put(AppConst.STATUS, AppConst.ERROR);
+            model.put(AppConst.MESSAGE, e.getLocalizedMessage());
         }
-        if (user != null && EncryptionUtils.validate(password, user.getPassword())) {
-            throw new RuntimeException("密码错误！！！请重新输入。");
-        }
-        super.getSession().setAttribute("user",user);
+        return model;
         //form表单提交为post方法 ，使用重定向转为Get方法。另外防止重复提交
-        return "redirect:/html/todo.html";
+//        return "redirect:/html/to do.html";
 //        return "redirect:/error/unknown.html";
     }
 
