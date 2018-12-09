@@ -56,8 +56,8 @@
                                     TODO_ITEM_CONTENT, PRIORITY, CREATION_DATE,
                                     LAST_UPDATE_DATE, COMMENTS)
         values (#{todoItemId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{todoItemTitle,jdbcType=VARCHAR},
-                #{todoItemContent,jdbcType=VARCHAR}, #{priority,jdbcType=VARCHAR}, #{creationDate,jdbcType=TIMESTAMP},
-                #{lastUpdateDate,jdbcType=TIMESTAMP}, #{comments,jdbcType=VARCHAR})
+                #{todoItemContent,jdbcType=VARCHAR}, #{priority,jdbcType=VARCHAR},CURRENT_TIMESTAMP ,
+                CURRENT_TIMESTAMP, #{comments,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.wcc.todo.entity.TodoItem">
         insert into CUX_TODO_ITEMS
@@ -133,7 +133,7 @@
                 CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
             </if>
             <if test="lastUpdateDate != null">
-                LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+                LAST_UPDATE_DATE = CURRENT_TIMESTAMP ,
             </if>
             <if test="comments != null">
                 COMMENTS = #{comments,jdbcType=VARCHAR},
@@ -148,7 +148,7 @@
             TODO_ITEM_CONTENT = #{todoItemContent,jdbcType=VARCHAR},
             PRIORITY          = #{priority,jdbcType=VARCHAR},
             CREATION_DATE     = #{creationDate,jdbcType=TIMESTAMP},
-            LAST_UPDATE_DATE  = #{lastUpdateDate,jdbcType=TIMESTAMP},
+            LAST_UPDATE_DATE  = CURRENT_TIMESTAMP ,
             COMMENTS          = #{comments,jdbcType=VARCHAR}
         where TODO_ITEM_ID = #{todoItemId,jdbcType=DECIMAL}
     </update>

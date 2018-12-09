@@ -12,8 +12,13 @@ public class AppConst {
     public static final String ERRORS = "error";
 
     public static final String QUERY_FAIL = "查询失败";
-    public static final String ADD_FAIL = "添加失败";
+    public static final String INSERT_FAIL = "添加失败";
     public static final String UPDATE_FAIL = "更新失败";
     public static final String DELETE_FAIL = "删除失败";
+
+    public static final String UPDATE_SUCCESS = "更新成功";
+    public static final String DELETE_SUCCESS = "删除成功";
+    public static final String INSERT_SUCCESS = "新增成功";
+
 
 }

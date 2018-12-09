@@ -157,7 +157,7 @@
       AGE = #{age,jdbcType=DECIMAL},
       PHONE_NUMBER = #{phoneNumber,jdbcType=VARCHAR},
       CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
-      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_DATE =CURRENT_TIMESTAMP ,
       COMMENTS = #{comments,jdbcType=VARCHAR}
     where USER_ID = #{userId,jdbcType=DECIMAL}
   </update>
