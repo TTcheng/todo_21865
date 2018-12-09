@@ -16,6 +16,21 @@
     USER_ID, USER_NAME, PASSWORD, SEX, AGE, PHONE_NUMBER, CREATION_DATE, LAST_UPDATE_DATE, 
     COMMENTS
   </sql>
+  <!--
+  <sql id="queryWhereByEntity" >
+    <where>
+      <if test="entity.userId != null">
+        AND id =  #{entity.userId , jdbcType=DECIMAL }
+      </if>
+      <if test="entity.userName != null">
+        AND ryid =  #{entity.userName , jdbcType=VARCHAR }
+      </if>
+      <if test="entity.userName != null">
+        AND ryid =  #{entity.p , jdbcType=VARCHAR }
+      </if>
+    </where>
+  </sql>
+  -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
     select 
     <include refid="Base_Column_List" />
@@ -28,6 +43,7 @@
     from CUX_USERS
     where USER_NAME = #{userName,jdbcType=VARCHAR}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
     delete from CUX_USERS
     where USER_ID = #{userId,jdbcType=DECIMAL}
@@ -39,7 +55,7 @@
       )
     values (#{userId,jdbcType=DECIMAL}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{age,jdbcType=DECIMAL}, #{phoneNumber,jdbcType=VARCHAR}, 
-      #{creationDate,jdbcType=TIMESTAMP}, #{lastUpdateDate,jdbcType=TIMESTAMP}, #{comments,jdbcType=VARCHAR}
+      #{creationDate,jdbcType=TIMESTAMP}, CURRENT_TIMESTAMP , #{comments,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.wcc.todo.entity.User" >
@@ -125,7 +141,7 @@
         CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
       </if>
       <if test="lastUpdateDate != null" >
-        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+        LAST_UPDATE_DATE = CURRENT_TIMESTAMP ,
       </if>
       <if test="comments != null" >
         COMMENTS = #{comments,jdbcType=VARCHAR},

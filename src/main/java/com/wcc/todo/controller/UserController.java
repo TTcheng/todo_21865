@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,13 +51,11 @@ public class UserController extends BaseController {
             super.getSession().setAttribute("user", user);
             model.put(AppConst.STATUS, AppConst.SUCCESS);
         } catch (Exception e) {
-            model.put(AppConst.STATUS, AppConst.ERROR);
-            model.put(AppConst.MESSAGE, e.getLocalizedMessage());
+            model.put(AppConst.STATUS, AppConst.FAIL);
+            model.put(AppConst.MESSAGE, "登录失败");
+            logger.error(AppConst.ERRORS,e);
         }
         return model;
-        //form表单提交为post方法 ，使用重定向转为Get方法。另外防止重复提交
-//        return "redirect:/html/to do.html";
-//        return "redirect:/error/unknown.html";
     }
 
 

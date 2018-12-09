@@ -27,11 +27,9 @@ function getDateStr(date, filter) {
 var localVersion = getDateStr(new Date(), 'yyyymmddhh');//版本号，每小时一个版本
 var basePath = location.origin;//服务的基本路径
 var dictBasePath = basePath + '/js/dict/';//字典js的目录
-// css
-document.write('\<link href="' + basePath + '/css/base.css?v=' + localVersion + '" rel="stylesheet" />');
 // script
-document.write('<script src="' + basePath + '/js/jquery-3.3.1.js"></script>');
-document.write('<script src="' + basePath + '/js/jquery.blockUI.js"></script>');
-document.write('<script src="' + basePath + '/js/common.js"></script>');
+document.write('<script src="' + basePath + '/js/jquery-3.3.1.js?v=' + localVersion + '"></script>');
+document.write('<script src="' + basePath + '/js/jquery.blockUI.js?v=' + localVersion + '"></script>');
+document.write('<script src="' + basePath + '/js/common.js?v=' + localVersion + '"></script>');
 // document.write('<script src="jquery.blockUI.js"></script>');
 // document.write('<script src="common.js"></script>');

@@ -13,56 +13,6 @@
             padding-bottom: 50px;
             padding-top: 0;
         }
-
-        /*nav css*/
-        .container-fluid {
-            margin: 10px 0;
-            padding-right: 15px;
-            padding-left: 15px;
-        }
-
-        #logo {
-            background: url(../images/hand-logo.png) no-repeat;
-            width: 110px;
-            height: 50px;
-            display: block;
-            margin-top: -15px;
-            border-right: 1px solid #eb2d2f;
-            margin-left: -15px;
-        }
-
-        .navbar {
-            position: relative;
-            min-height: 50px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-        }
-
-        .navbar-default {
-            background-color: #f8f8f8;
-            border-color: #e7e7e7;
-        }
-
-        .navbar-static-top {
-            background-image: linear-gradient(to bottom, #ececec 0px, #ececec 100%);
-            border-bottom: 10px solid #424242;
-            border-radius: 0;
-            z-index: 1000;
-        }
-
-        .navbar-header {
-            float: left;
-        }
-
-        .navbar-brand {
-            text-shadow: 0 1px 0 rgba(255, 255, 255, .25);
-            font-size: 24px;
-            color: #777;
-            line-height: 20px;
-            margin-left: 15px;
-            float: left; /*横向排列*/
-        }
-
         /*login form css*/
         .login-title {
             background: #c1c1c1;
@@ -156,7 +106,8 @@
         }
 
     </style>
-    <script>document.write('\<script src="../js/includeJs.js"\>\<\/script\>');</script>
+    <script>document.write('\<script src="../js/includeJs.js?r=' + Math.random() + '"\>\<\/script\>');</script>
+    <script>document.write('\<script src="../js/includeCss.js?v=' + localVersion + '"\>\<\/script\>');</script>
     <script>
         function doLogin() {
             var username = $("#username").val();

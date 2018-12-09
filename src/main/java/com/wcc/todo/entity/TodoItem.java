@@ -10,7 +10,7 @@ public class TodoItem extends BaseEntity {
 
     private String todoItemTitle;
 
-    private String todoTiemContent;
+    private String todoItemContent;
 
     private String priority;
 
@@ -38,12 +38,12 @@ public class TodoItem extends BaseEntity {
         this.todoItemTitle = todoItemTitle;
     }
 
-    public String getTodoTiemContent() {
-        return todoTiemContent;
+    public String getTodoItemContent() {
+        return todoItemContent;
     }
 
-    public void setTodoTiemContent(String todoTiemContent) {
-        this.todoTiemContent = todoTiemContent;
+    public void setTodoItemContent(String todoItemContent) {
+        this.todoItemContent = todoItemContent;
     }
 
     public String getPriority() {

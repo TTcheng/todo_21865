@@ -1,0 +1,2 @@
+document.write('\<link href="' + basePath + '/css/base.css?v=' + localVersion + '" rel="stylesheet" />');
+document.write('\<link href="' + basePath + '/css/nav.css?v=' + localVersion + '" rel="stylesheet" />');

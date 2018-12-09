@@ -5,10 +5,6 @@
 	<sql id="insertGgzd">
         LAST_UPDATE_DATE
 	</sql>
-	<!-- 新增记录公共字段值 -->
-	<sql id="insertGgzdVal">
-        CURRENT_TIMESTAMP
-    </sql>
 	<!-- 修改记录公共字段 -->
 	<sql id="updateGgzd">
         LAST_UPDATE_DATE = CURRENT_TIMESTAMP
