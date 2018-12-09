@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="../css/nav.css"/>
     <meta charset="UTF-8">
     <title>待办事项管理</title>
     <script>document.write('\<script src="../js/includeJs.js?r=' + Math.random() + '"\>\<\/script\>');</script>
@@ -11,14 +12,6 @@
     <script>document.write('\<link href="' + basePath + '/css/easyui/easyui.css?v=' + localVersion + '" rel="stylesheet" />');</script>
     <script>document.write('\<link href="' + basePath + '/css/easyui/icon.css?v=' + localVersion + '" rel="stylesheet" />');</script>
     <script>document.write('\<link href="' + basePath + '/css/easyui/easyui.css?v=' + localVersion + '" rel="stylesheet" />');</script>
-    <style>
-        .top-btn {
-            position: relative;
-            margin-bottom: 10px;
-            height: 30px;
-            line-height: 30px;
-        }
-    </style>
 </head>
 <body>
 <nav class="navbar navbar-static-top navbar-default">
@@ -26,16 +19,22 @@
         <div>
             <div class="navbar-header">
                 <div class="navbar-brand">
-                    <span id="logo"></span>
+                    <a href="Todo.html"><span id="logo"></span></a>
                 </div>
-                <span class="navbar-brand">个人待办事项管理系统</span>
+                <a href="Todo.html"><span class="navbar-brand">个人待办事项管理系统</span></span></a>
+            </div>
+        </div>
+        <div>
+            <div class="navbar-header navbar-right" id="user-bar">
+                <a href="User.html"><img src="../images/user_black2.png" alt="用户"></a>
+                <a href="/user/logout"><img src="../images/logout_black.png" alt="注销"></a>
             </div>
         </div>
     </div>
 </nav>
 <div style="margin:20px 0;"></div>
 <!--数据网格-->
-<table id="dg" class="datagrid" title="待办列表" style="width:800px;height:300px" data-options="
+<table id="dg" class="datagrid" title="待办列表" style="width:99%;height:600px" data-options="
 				rownumbers:false,
 				singleSelect:true,
 				autoRowHeight:false,
@@ -78,13 +77,15 @@
                     var data = res.data;
                     for (var i = 0; i < data.length; i++) {
                         var item = data[i];
+                        var creationDate = formatDateStr(item.creationDate);
+                        var lastUpdateDate = formatDateStr(item.lastUpdateDate);
                         rows.push({
                             todo_no: item.todoItemId,
                             todo_title: item.todoItemTitle,
                             todo_content: item.todoItemContent,
                             todo_prior: item.priority,
-                            todo_creation_date: item.creationDate,
-                            todo_update_date: item.lastUpdateDate,
+                            todo_creation_date: creationDate,
+                            todo_update_date: lastUpdateDate,
                             todo_comment: item.comments
                         });
                     }
@@ -176,9 +177,9 @@
         $('#dg').datagrid('endEdit', index);
         rows = $('#dg').datagrid('getRows');
         var requestUrl = basePath + "/todo";
-        if (editing){
+        if (editing) {
             requestUrl = requestUrl + "/update"
-        }else {
+        } else {
             requestUrl = requestUrl + "/insert"
         }
         loading('open', '保存中...');
@@ -187,21 +188,21 @@
             cache: false,
             url: requestUrl,
             data: {
-                todoItemId:rows[index].todo_no,
-                todoItemTitle:rows[index].todo_title,
-                todoItemContent:rows[index].todo_content,
-                priority:rows[index].todo_prior,
-                comments:rows[index].todo_content
+                todoItemId: rows[index].todo_no,
+                todoItemTitle: rows[index].todo_title,
+                todoItemContent: rows[index].todo_content,
+                priority: rows[index].todo_prior,
+                comments: rows[index].todo_comment
             },
             dataType: 'json',
             success: function (data) {
-                if (data.status==='success') {
+                if (data.status === 'success') {
                     $.messager.alert('恭喜你', data.message);
                     currentEditRow = undefined;
                 } else {
                     $.messager.alert('错误', data.message);
-                    refreshDataFromServer();//保存失败,重载
                 }
+                refreshDataFromServer();//重载
             },
             error: function () {
                 $.messager.alert('错误', '请求出错');
@@ -228,35 +229,35 @@
                 {
                     field: 'todo_no',
                     title: '序号',
-                    width: 50,
+                    width: '10%',
                     sortable: true,
-                    editor: {type: 'validatebox', options: {required: true, validType: 'itemId'}}/*sorter:fucntion(a,b)自定义排序*/
+                    editor: {type: 'validatebox', options: {required: true, validType: 'idValidator'}}/*sorter:fucntion(a,b)自定义排序*/
                 },
                 {
                     field: 'todo_title',
                     title: '标题',
-                    width: 100,
-                    editor: {type: 'validatebox', options: {required: true, validType: 'strChinese'}}
+                    width: '10%',
+                    editor: {type: 'validatebox', options: {required: true/*, validType: 'strChinese'*/}}
                 },
                 {
                     field: 'todo_content',
                     title: '内容',
-                    width: 200,
-                    editor: {type: 'validatebox', options: {required: true, validType: 'strChinese'}}
+                    width: '20%',
+                    editor: {type: 'validatebox', options: {required: true/*, validType: 'strChinese'*/}}
                 },
                 {
                     field: 'todo_prior',
                     title: '优先级',
-                    width: 50,
+                    width: '10%',
                     editor: {type: 'validatebox', options: {required: true, validType: 'strPriority'}}
                 },
-                {field: 'todo_creation_date', title: '创建时间', width: 150, sortable: true},
-                {field: 'todo_update_date', title: '更新时间', width: 150, sortable: true},
+                {field: 'todo_creation_date', title: '创建时间', width: '15%', sortable: true},
+                {field: 'todo_update_date', title: '更新时间', width: '15%', sortable: true},
                 {
                     field: 'todo_comment',
                     title: '备注',
-                    width: 100,
-                    editor: {type: 'validatebox', options: {required: false, validType: 'strChinese'}}/*, align: 'right',formatter:funtionname*/
+                    width: '20%',
+                    editor: {type: 'validatebox', options: {required: false/*, validType: 'strChinese'*/}}/*, align: 'right',formatter:funtionname*/
                 }
             ]],
             onBeforeEdit: function (index, row) {
@@ -276,6 +277,22 @@
             },
             onDblClickRow: function (index, field, value) {
                 //双击事件
+            }
+        });
+        $.extend($.fn.validatebox.defaults.rules, {
+            strPriority: {
+                validator: function (value) {
+                    var re = /\b(HIGH|LOW|MEDIUM)\b/;
+                    return re.test(value);
+                },
+                message: '只能输入HIGH|LOW|MEDIUM三者之一！'
+            },
+            strEngNum: {
+                validator: function (value) {
+                    var re = /[^\w+$]/;
+                    return !re.test(value);
+                },
+                message: '只能输入英文、数字或下划线！'
             }
         });
         refreshDataFromServer();

@@ -23,3 +23,13 @@ function guid() {
         return v.toString(16);
     });
 }
+
+/**
+ * convert {2018-12-07T09:52:16.000+0000} to {2018/12/07 09:52}
+ * @param str
+ * @returns {string}
+ */
+function formatDateStr(str) {
+    var split = str.split('T');
+    return split[0].replace(/\-/g, '/') + " " + split[1].substr(0, 5);
+}

@@ -1,6 +1,7 @@
 /*nav css*/
 .container-fluid {
-    margin: 10px 0;
+    /*margin: 10px 0;*/
+    margin-top: 20px;
     padding-right: 15px;
     padding-left: 15px;
 }
@@ -18,6 +19,7 @@
 .navbar {
     position: relative;
     min-height: 50px;
+    height: 70px;
     margin-bottom: 20px;
     border: 1px solid transparent;
 }
@@ -45,4 +47,19 @@
     line-height: 20px;
     margin-left: 15px;
     float: left; /*横向排列*/
+}
+
+.navbar-nav {
+    float: left;
+    /*margin: 7.5px -15px;*/
+}
+
+.navbar-right {
+    float: right!important;
+    /*margin-right: -15px;*/
+}
+
+.navbar-right-li{
+    float: right;
+    margin-bottom: 15px;
 }

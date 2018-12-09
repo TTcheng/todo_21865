@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>待办事项管理</title>
+    <title>个人信息维护</title>
     <script>document.write('\<script src="../js/includeJs.js?r=' + Math.random() + '"\>\<\/script\>');</script>
     <script>document.write('\<script src="' + basePath + '/js/includeCss.js?v=' + localVersion + '"\>\<\/script\>');</script>
     <script>document.write('\<script src="' + basePath + '/js/jquery.easyui.min.js?v=' + localVersion + '"\>\<\/script\>');</script>
@@ -11,11 +11,60 @@
     <script>document.write('\<link href="' + basePath + '/css/easyui/easyui.css?v=' + localVersion + '" rel="stylesheet" />');</script>
     <script>document.write('\<link href="' + basePath + '/css/easyui/icon.css?v=' + localVersion + '" rel="stylesheet" />');</script>
     <style>
-        .top-btn {
-            position: relative;
+
+        td:nth-child(odd) {
+            font-weight: bold;
+            width: 20%;
+            /*text-align: right;*/
+        }
+
+        td:nth-child(even) {
+            font-weight: bold;
+            width: 20%;
+            text-align: left;
+        }
+
+        .new-table-shadow {
+            width: 95%;
+            background: #e5efff no-repeat;
+            box-shadow: 0 0 6px #0f0f0f;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+
+        .center-title {
+            width: 100%;
+            border-top: 1px solid #086296;
+            margin: 0 auto;
+            background: url(../images/center-title.png) 50% no-repeat;
+            background-size: 150px 25px;
+            color: #fff;
+            font-size: 15px;
+            text-align: center;
+            line-height: 25px;
             margin-bottom: 10px;
-            height: 30px;
-            line-height: 30px;
+        }
+
+        .userInfo-title {
+            width: 100%;
+            height: 70px;
+            margin: 0 auto;
+            /*background: url(../images/topBanner.png) no-repeat;*/
+
+            background-size: 400px 90px;
+            border-radius: 5px 5px 0 0;
+        }
+
+        /*分割线*/
+        .border-left {
+            border-left: 2px dotted;
+        }
+
+        .table-style {
+            font-size: 15px;
+            width: 100%;
+            /*float: left;*/
+            padding-bottom: 20px;
         }
     </style>
 </head>
@@ -25,158 +74,116 @@
         <div>
             <div class="navbar-header">
                 <div class="navbar-brand">
-                    <span id="logo"></span>
+                    <a href="Todo.html"><span id="logo"></span></a>
                 </div>
-                <span class="navbar-brand">个人待办事项管理系统</span>
+                <a href="Todo.html"><span class="navbar-brand">个人待办事项管理系统</span></span></a>
+            </div>
+        </div>
+        <div>
+            <div class="navbar-header navbar-right" id="user-bar">
+                <a href="User.html"><img src="../images/user_black2.png" alt="用户"></a>
+                <a href="/user/logout"><img src="../images/logout_black.png" alt="注销"></a>
             </div>
         </div>
     </div>
 </nav>
 <div style="margin:20px 0;"></div>
 
-<table id="dg" title="Client Side Pagination" style="width:700px;height:300px" data-options="
-				rownumbers:true,
-				singleSelect:true,
-				autoRowHeight:false,
-				pagination:true,
-				pageSize:10">
-    <thead>
-    <tr>
-        <th field="inv" width="80">Inv No</th>
-        <th field="date" width="100">Date</th>
-        <th field="name" width="80">Name</th>
-        <th field="amount" width="80" align="right">Amount</th>
-        <th field="price" width="80" align="right">Price</th>
-        <th field="cost" width="100" align="right">Cost</th>
-        <th field="note" width="110">Note</th>
-    </tr>
-    </thead>
-</table>
+<div class="new-table-shadow">
+
+    <div class="userInfo-title">
+
+        <div id="head"></div>
+
+        <div id="welcome"></div>
+    </div>
+    <form id="dataForm">
+        <div class="title-time">
+            <div class="head-time">
+                    <span style="position:absolute;top:9%;left:56%;">
+                            <a onclick="uploadImg()"><span class="mui-icon mui-icon-compose"></span></a>
+                    </span>
+            </div>
+        </div>
+        <div class="bottom-li">
+            <ul class="" id="userInfoTable">
+                <div class="center-title">基本信息</div>
+                <table class="table-style" style="">
+                    <tbody>
+                    <tr>
+                        <td>用户名</td>
+                        <td><span class="detailText" id="username">Jesse</span></td>
+                        <td>密码</td>
+                        <td><span class="detailText">******</span></td>
+                    </tr>
+                    <tr>
+                        <td>性别</td>
+                        <td><span class="detailText" id="gender">男</span></td>
+                        <td>年龄</td>
+                        <td><span class="detailText" id="age">22</span></td>
+                    </tr>
+                    <tr>
+                        <td>电话号码</td>
+                        <td><span class="detailText" id="phoneNumber">15884955091</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ul>
+        </div><!--bottom-li-->
+        <div class="bottom-li">
+            <ul class="">
+                <div class="center-title">其他信息</div>
+                <table class="table-style" style="">
+                    <tbody>
+                    <tr>
+                        <td>创建时间</td>
+                        <td><span class="detailText" id="creationDate">2016/1/1 13:00</span></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>修改时间</td>
+                        <td><span class="detailText" id="lastUpdateDate">2016/1/1 15:00</span></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>备注</td>
+                        <td><span class="detailText" id="comments">15884955091</span></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ul>
+        </div><!--bottom-li-->
+    </form>
+</div><!--shadow-->
 </body>
 
 <!--自定义配置部分-->
 <script>
-    (function ($) {
-        function pagerFilter(data) {
-            if ($.isArray(data)) {	// is array
-                data = {
-                    total: data.length,
-                    rows: data
-                }
-            }
-            var target = this;
-            var dg = $(target);
-            var state = dg.data('datagrid');
-            var opts = dg.datagrid('options');
-            if (!state.allRows) {
-                state.allRows = (data.rows);
-            }
-            if (!opts.remoteSort && opts.sortName) {
-                var names = opts.sortName.split(',');
-                var orders = opts.sortOrder.split(',');
-                state.allRows.sort(function (r1, r2) {
-                    var r = 0;
-                    for (var i = 0; i < names.length; i++) {
-                        var sn = names[i];
-                        var so = orders[i];
-                        var col = $(target).datagrid('getColumnOption', sn);
-                        var sortFunc = col.sorter || function (a, b) {
-                            return a == b ? 0 : (a > b ? 1 : -1);
-                        };
-                        r = sortFunc(r1[sn], r2[sn]) * (so == 'asc' ? 1 : -1);
-                        if (r != 0) {
-                            return r;
-                        }
-                    }
-                    return r;
-                });
-            }
-            var start = (opts.pageNumber - 1) * parseInt(opts.pageSize);
-            var end = start + parseInt(opts.pageSize);
-            data.rows = state.allRows.slice(start, end);
-            return data;
+    function render(data) {
+        $('#username').text(data.userName);
+        $('#age').text(data.age);
+        var gender = '男';
+        if (data.sex === 'F') {
+            gender = '女';
         }
-
-        var loadDataMethod = $.fn.datagrid.methods.loadData;
-        var deleteRowMethod = $.fn.datagrid.methods.deleteRow;
-        $.extend($.fn.datagrid.methods, {
-            clientPaging: function (jq) {
-                return jq.each(function () {
-                    var dg = $(this);
-                    var state = dg.data('datagrid');
-                    var opts = state.options;
-                    opts.loadFilter = pagerFilter;
-                    var onBeforeLoad = opts.onBeforeLoad;
-                    opts.onBeforeLoad = function (param) {
-                        state.allRows = null;
-                        return onBeforeLoad.call(this, param);
-                    }
-                    var pager = dg.datagrid('getPager');
-                    pager.pagination({
-                        onSelectPage: function (pageNum, pageSize) {
-                            opts.pageNumber = pageNum;
-                            opts.pageSize = pageSize;
-                            pager.pagination('refresh', {
-                                pageNumber: pageNum,
-                                pageSize: pageSize
-                            });
-                            dg.datagrid('loadData', state.allRows);
-                        }
-                    });
-                    $(this).datagrid('loadData', state.data);
-                    if (opts.url) {
-                        $(this).datagrid('reload');
-                    }
-                });
-            },
-            loadData: function (jq, data) {
-                jq.each(function () {
-                    $(this).data('datagrid').allRows = null;
-                });
-                return loadDataMethod.call($.fn.datagrid.methods, jq, data);
-            },
-            deleteRow: function (jq, index) {
-                return jq.each(function () {
-                    var row = $(this).datagrid('getRows')[index];
-                    deleteRowMethod.call($.fn.datagrid.methods, $(this), index);
-                    var state = $(this).data('datagrid');
-                    if (state.options.loadFilter == pagerFilter) {
-                        for (var i = 0; i < state.allRows.length; i++) {
-                            if (state.allRows[i] == row) {
-                                state.allRows.splice(i, 1);
-                                break;
-                            }
-                        }
-                        $(this).datagrid('loadData', state.allRows);
-                    }
-                });
-            },
-            getAllRows: function (jq) {
-                return jq.data('datagrid').allRows;
-            }
-        })
-    })(jQuery);
-
-    function getData() {
-        var rows = [];
-        for (var i = 1; i <= 800; i++) {
-            var amount = Math.floor(Math.random() * 1000);
-            var price = Math.floor(Math.random() * 1000);
-            rows.push({
-                inv: 'Inv No ' + i,
-                date: $.fn.datebox.defaults.formatter(new Date()),
-                name: 'Name ' + i,
-                amount: amount,
-                price: price,
-                cost: amount * price,
-                note: 'Note ' + i
-            });
-        }
-        return rows;
+        $('#gender').text(gender);
+        $('#phoneNumber').text(data.phoneNumber);
+        $('#creationDate').text(formatDateStr(data.creationDate));
+        $('#lastUpdateDate').text(formatDateStr(data.lastUpdateDate));
+        $('#comments').text(data.comments);
     }
 
+
     $(function () {
-        $('#dg').datagrid({data: getData()}).datagrid('clientPaging');
+        loading('open', '加载中...');
+        $.getJSON(basePath + '/user/info', {}, function (data, status) {
+            render(data);
+            loading('close');
+        });
     });
 </script>
 </html>
