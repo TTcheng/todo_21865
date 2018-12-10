@@ -1,7 +1,7 @@
 package com.wcc.todo.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.wcc.base.controller.BaseController;
+import com.wcc.base.exception.BusinessException;
 import com.wcc.base.utils.EncryptionUtils;
 import com.wcc.base.utils.NumberUtils;
 import com.wcc.todo.entity.AppConst;
@@ -44,15 +44,18 @@ public class UserController extends BaseController {
             } else {
                 user = (User) userService.queryUserByName(username);
             }
-            if (user != null && EncryptionUtils.validate(password, user.getPassword())) {
-                throw new RuntimeException("密码错误！！！请重新输入。");
+            if (user==null){
+                throw new BusinessException("不存在此用户！");
+            }
+            if (!EncryptionUtils.validate(password, user.getPassword())) {
+                throw new BusinessException("密码错误！！！请重新输入。");
             }
             super.getSession().setAttribute("user", user);
             model.put(AppConst.STATUS, AppConst.SUCCESS);
         } catch (Exception e) {
             model.put(AppConst.STATUS, AppConst.FAIL);
-            model.put(AppConst.MESSAGE, "登录失败");
-            logger.error(AppConst.ERRORS,e);
+            model.put(AppConst.MESSAGE, e.getMessage());
+            logger.error(AppConst.ERRORS, e);
         }
         return model;
     }
@@ -60,24 +63,23 @@ public class UserController extends BaseController {
 
     /**
      * 登出
-     *
-     * @param userId 用户id
      * @return 登录页面
      */
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(String userId) {
+    @RequestMapping(value = "/logout")
+    public String logout() {
         super.getSession().removeAttribute("user");
         super.getSession().invalidate();
-        return "/html/login.html";
+        return "redirect:/html/login.html";
     }
 
     /**
      * 获取当前用户的信息
+     *
      * @return User
      */
     @ResponseBody
     @GetMapping("/info")
-    public User info(){
+    public User info() {
         User user = (User) getSession().getAttribute("user");
         return user;
     }
@@ -87,10 +89,10 @@ public class UserController extends BaseController {
     public Map<String, Object> update(User newUser) {
         Map<String, Object> model = new HashMap<>();
         try {
-            super.validateEmpty("用户名",newUser.getUserName());
-            super.validateEmpty("密码",newUser.getPassword());
-            super.validateEmpty("年龄",newUser.getAge());
-            super.validateEmpty("性别",newUser.getSex());
+            super.validateEmpty("用户名", newUser.getUserName());
+            super.validateEmpty("密码", newUser.getPassword());
+            super.validateEmpty("年龄", newUser.getAge());
+            super.validateEmpty("性别", newUser.getSex());
             //todo 合法性验证
             User user = (User) super.getSession().getAttribute("user");
             newUser.setCreationDate(user.getCreationDate());
@@ -108,7 +110,7 @@ public class UserController extends BaseController {
 
     @ResponseBody
     @PostMapping("/insert")
-    public Map<String,Object> insert(User entity){
+    public Map<String, Object> insert(User entity) {
         Map<String, Object> model = new HashMap<>();
         try {
             //to complete
