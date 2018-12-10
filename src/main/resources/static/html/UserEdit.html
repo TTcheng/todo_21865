@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>个人信息维护</title>
-    <script>document.write('\<script src="../js/includeJs.js?r=' + Math.random() + '"\>\<\/script\>');</script>
+    <script>document.write('\<script src="../js/includeJs.js?r=' + Math.random() + '" \>\<\/script\>');</script>
     <script>document.write('\<script src="' + basePath + '/js/includeCss.js?v=' + localVersion + '"\>\<\/script\>');</script>
     <script>document.write('\<script src="' + basePath + '/js/jquery.easyui.min.js?v=' + localVersion + '"\>\<\/script\>');</script>
     <!--easyui css-->
@@ -66,7 +66,8 @@
             /*float: left;*/
             padding-bottom: 20px;
         }
-        .edit-save-btn{
+
+        .edit-save-btn {
             width: 300px;
             height: 50px;
             line-height: 50px;
@@ -114,7 +115,7 @@
         <div class="title-time">
             <div class="head-time">
                     <span style="position:absolute;top:9%;left:56%;">
-                            <a onclick="uploadImg()"><span class="mui-icon mui-icon-compose"></span></a>
+                            <!--<a onclick="uploadImg()"><in class="mui-icon mui-icon-compose"></in></a>-->
                     </span>
             </div>
         </div>
@@ -125,19 +126,19 @@
                     <tbody>
                     <tr>
                         <td>用户名</td>
-                        <td><span class="detailText" id="username">Jesse</span></td>
+                        <td><input class=" textbox detailText" id="username" value="" required="required"/></td>
                         <td>密码</td>
-                        <td><span class="detailText">******</span></td>
+                        <td><span class=" detailText">******</span></td>
                     </tr>
                     <tr>
                         <td>性别</td>
-                        <td><span class="detailText" id="gender">男</span></td>
+                        <td><input class="textbox detailText" id="gender" value="" required/></td>
                         <td>年龄</td>
-                        <td><span class="detailText" id="age">22</span></td>
+                        <td><input class="textbox detailText" id="age" value="" required/></td>
                     </tr>
                     <tr>
                         <td>电话号码</td>
-                        <td><span class="detailText" id="phoneNumber">15884955091</span></td>
+                        <td><input class="textbox detailText" id="phoneNumber" value="" required/></td>
                     </tr>
                     </tbody>
                 </table>
@@ -162,7 +163,7 @@
                     </tr>
                     <tr>
                         <td>备注</td>
-                        <td><span class="detailText" id="comments">15884955091</span></td>
+                        <td><input class="textbox detailText" id="comments" value="" data-options=""/></td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -171,35 +172,69 @@
             </ul>
         </div><!--bottom-li-->
     </form>
-    <a href="UserEdit.html">
-        <button class="edit-save-btn">编辑</button>
-    </a>
+    <button class="edit-save-btn" onclick="doSave()">保存</button>
 </div><!--shadow-->
 </body>
-
-<!--自定义配置部分-->
 <script>
     function render(data) {
-        $('#username').text(data.userName);
-        $('#age').text(data.age);
+        $('#username').val(data.userName);
+        $('#age').val(data.age);
         var gender = '男';
         if (data.sex === 'F') {
             gender = '女';
         }
-        $('#gender').text(gender);
-        $('#phoneNumber').text(data.phoneNumber);
-        $('#creationDate').text(formatDateStr(data.creationDate));
-        $('#lastUpdateDate').text(formatDateStr(data.lastUpdateDate));
-        $('#comments').text(data.comments);
+        $('#gender').val(gender);
+        $('#phoneNumber').val(data.phoneNumber);
+        $('#creationDate').val(formatDateStr(data.creationDate));
+        $('#lastUpdateDate').val(formatDateStr(data.lastUpdateDate));
+        $('#comments').val(data.comments);
     }
 
-
     $(function () {
+        //填默认值
         loading('open', '加载中...');
         $.getJSON(basePath + '/user/info', {}, function (data, status) {
             render(data);
             loading('close');
         });
+
+        //todo validators
     });
+
+    function doSave() {
+        var username = $('#username').val();
+        var gender = $('#gender').val();
+        var age = $('#age').val();
+        var phoneNumber = $('#phoneNumber').val();
+        var comment = $('#comments').val();
+        if (!(username && gender && age && phoneNumber)) {
+            $.messager.alert("错误", "请填写完整！");
+            return;
+        }
+        //do request
+        loading("open", '保存中...');
+        $.ajax({
+            url: '/user/update',
+            type: 'post',
+            data: {
+                userName: username,
+                age: age,
+                sex: gender,
+                phoneNumber: phoneNumber,
+                comments: comment
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.status === 'success') {
+                    $(location).attr('href', basePath + '/html/UserEdit.html');
+                } else {
+                    $.messager.alert('修改失败！');
+                }
+            },
+            complete: function () {
+                loading('close');
+            }
+        });
+    }
 </script>
 </html>

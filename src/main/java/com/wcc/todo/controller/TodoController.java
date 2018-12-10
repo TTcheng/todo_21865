@@ -85,6 +85,11 @@ public class TodoController extends BaseController {
     public Map<String, Object> insert(TodoItem entity) {
         Map<String, Object> model = new HashMap<>();
         try {
+            super.validateEmpty("待办标题",entity.getTodoItemTitle());
+            super.validateEmpty("待办内容",entity.getTodoItemContent());
+            super.validateEmpty("优先级",entity.getPriority());
+            super.validateEmpty("编号",entity.getTodoItemId());
+            //todo 合法性验证
             User currentUser = (User) getSession().getAttribute("user");
             entity.setUserId(currentUser.getUserId());
             todoItemService.insert(entity);

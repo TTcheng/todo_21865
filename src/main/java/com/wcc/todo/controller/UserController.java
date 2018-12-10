@@ -5,14 +5,12 @@ import com.wcc.base.controller.BaseController;
 import com.wcc.base.utils.EncryptionUtils;
 import com.wcc.base.utils.NumberUtils;
 import com.wcc.todo.entity.AppConst;
-import com.wcc.todo.entity.TodoItem;
 import com.wcc.todo.entity.User;
 import com.wcc.todo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -84,12 +82,18 @@ public class UserController extends BaseController {
         return user;
     }
 
+    @ResponseBody
     @PostMapping("/update")
     public Map<String, Object> update(User newUser) {
         Map<String, Object> model = new HashMap<>();
         try {
+            super.validateEmpty("用户名",newUser.getUserName());
+            super.validateEmpty("密码",newUser.getPassword());
+            super.validateEmpty("年龄",newUser.getAge());
+            super.validateEmpty("性别",newUser.getSex());
+            //todo 合法性验证
             User user = (User) super.getSession().getAttribute("user");
-            newUser.setCreationDate(null);
+            newUser.setCreationDate(user.getCreationDate());
             newUser.setUserId(user.getUserId());
             userService.update(newUser);
             model.put(AppConst.STATUS, AppConst.SUCCESS);
