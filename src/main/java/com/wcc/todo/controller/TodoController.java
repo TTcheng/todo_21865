@@ -2,6 +2,7 @@ package com.wcc.todo.controller;
 
 import com.wcc.base.controller.BaseController;
 import com.wcc.base.entity.BaseEntity;
+import com.wcc.base.exception.BusinessException;
 import com.wcc.todo.entity.AppConst;
 import com.wcc.todo.entity.TodoItem;
 import com.wcc.todo.entity.User;
@@ -64,6 +65,11 @@ public class TodoController extends BaseController {
     public Map<String, Object> update(TodoItem entity) {
         Map<String, Object> model = new HashMap<>();
         try {
+            User curUser = (User) super.getSession().getAttribute("user");
+            if (curUser==null){
+                throw new BusinessException("登录已过期，请重新登录！");
+            }
+            entity.setUserId(curUser.getUserId());
             todoItemService.update(entity);
             model.put(AppConst.STATUS, AppConst.SUCCESS);
             model.put(AppConst.MESSAGE, AppConst.UPDATE_SUCCESS);
@@ -88,7 +94,6 @@ public class TodoController extends BaseController {
             super.validateEmpty("待办标题",entity.getTodoItemTitle());
             super.validateEmpty("待办内容",entity.getTodoItemContent());
             super.validateEmpty("优先级",entity.getPriority());
-            super.validateEmpty("编号",entity.getTodoItemId());
             //todo 合法性验证
             User currentUser = (User) getSession().getAttribute("user");
             entity.setUserId(currentUser.getUserId());

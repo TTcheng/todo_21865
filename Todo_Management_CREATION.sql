@@ -74,6 +74,20 @@ COMMENT ON COLUMN CUX_TODO_ITEMS.CREATION_DATE IS '创建时间';
 COMMENT ON COLUMN CUX_TODO_ITEMS.LAST_UPDATE_DATE IS '更新时间';
 COMMENT ON COLUMN CUX_TODO_ITEMS.COMMENTS IS '备注';
 
+-- 创建序列
+create sequence SEQ_CUX_ITEM_ID  --Sequence实例名
+minvalue 1                                --最小值，可以设置为0
+maxvalue 2147483647                       --最大值
+start with 1                              --从1开始计数
+increment by 1                            --每次加几个
+cache 20;
+
+create sequence SEQ_CUX_USER_ID  --Sequence实例名
+minvalue 1                                --最小值，可以设置为0
+maxvalue 2147483647                       --最大值
+start with 1                              --从1开始计数
+increment by 1                            --每次加几个
+cache 20;
 
 -- 导入数据
 INSERT INTO CUX_TODO_ITEMS VALUES(1001,1001,'开会','出项目方案','HIGH',CURRENT_TIMESTAMP ,CURRENT_TIMESTAMP ,'很重要');

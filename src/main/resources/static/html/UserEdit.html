@@ -6,6 +6,7 @@
     <script>document.write('\<script src="../js/includeJs.js?r=' + Math.random() + '" \>\<\/script\>');</script>
     <script>document.write('\<script src="' + basePath + '/js/includeCss.js?v=' + localVersion + '"\>\<\/script\>');</script>
     <script>document.write('\<script src="' + basePath + '/js/jquery.easyui.min.js?v=' + localVersion + '"\>\<\/script\>');</script>
+    <script>document.write('\<script src="' + basePath + '/js/easyui_validate_rules?v=' + localVersion + '"\>\<\/script\>');</script>
     <!--easyui css-->
     <script>document.write('\<link href="' + basePath + '/css/easyui/demo.css?v=' + localVersion + '" rel="stylesheet" />');</script>
     <script>document.write('\<link href="' + basePath + '/css/easyui/easyui.css?v=' + localVersion + '" rel="stylesheet" />');</script>
@@ -126,19 +127,24 @@
                     <tbody>
                     <tr>
                         <td>用户名</td>
-                        <td><input class=" textbox detailText" id="username" value="" required="required"/></td>
+                        <td><input type="text" class="easyui-textbox detailText" id="username" value="" required="required"
+                                   data-options="{required: true, validType: 'chsOrNumOrLetter'}"/></td>
                         <td>密码</td>
-                        <td><span class=" detailText">******</span></td>
+                        <td><input type="password" class="easyui-textbox detailText" value="******"
+                                   data-options="{required: true, validType: 'password'}"/></td>
                     </tr>
                     <tr>
                         <td>性别</td>
-                        <td><input class="textbox detailText" id="gender" value="" required/></td>
+                        <td><input type="text" class="easyui-textbox detailText" id="gender" value="" required
+                                   data-options="{required: true, validType:''}"/></td>
                         <td>年龄</td>
-                        <td><input class="textbox detailText" id="age" value="" required/></td>
+                        <td><input type="text" class="easyui-textbox detailText" id="age" value=""
+                                   data-options="{required: true, validType: 'naturalNumberRange[1,200]'}"/></td>
                     </tr>
                     <tr>
                         <td>电话号码</td>
-                        <td><input class="textbox detailText" id="phoneNumber" value="" required/></td>
+                        <td><input type="text" class="easyui-textbox detailText" id="phoneNumber" value="" required
+                                   data-options="{required: true, validType: 'phone'}"/></td>
                     </tr>
                     </tbody>
                 </table>
@@ -163,7 +169,8 @@
                     </tr>
                     <tr>
                         <td>备注</td>
-                        <td><input class="textbox detailText" id="comments" value="" data-options=""/></td>
+                        <td><input type="text" class="easyui-textbox detailText" id="comments" value=""
+                                   data-options="{required: false, validType: ''}"/></td>
                         <td></td>
                         <td></td>
                     </tr>
@@ -177,17 +184,18 @@
 </body>
 <script>
     function render(data) {
-        $('#username').val(data.userName);
-        $('#age').val(data.age);
+        $('#username').textbox('setValue',data.userName);
+        $('#age').textbox('setValue',data.age);
         var gender = '男';
         if (data.sex === 'F') {
             gender = '女';
         }
-        $('#gender').val(gender);
-        $('#phoneNumber').val(data.phoneNumber);
+        // $('#gender').val(gender);
+        $('#gender').textbox('setValue',gender);
+        $('#phoneNumber').textbox('setValue',data.phoneNumber);
+        $('#comments').textbox('setValue',data.comments);
         $('#creationDate').val(formatDateStr(data.creationDate));
         $('#lastUpdateDate').val(formatDateStr(data.lastUpdateDate));
-        $('#comments').val(data.comments);
     }
 
     $(function () {
@@ -197,8 +205,6 @@
             render(data);
             loading('close');
         });
-
-        //todo validators
     });
 
     function doSave() {

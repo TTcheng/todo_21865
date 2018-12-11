@@ -32,7 +32,7 @@
   </sql>
   -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from CUX_USERS
     where USER_ID = #{userId,jdbcType=DECIMAL}
@@ -53,7 +53,7 @@
       SEX, AGE, PHONE_NUMBER, 
       CREATION_DATE, LAST_UPDATE_DATE, COMMENTS
       )
-    values (#{userId,jdbcType=DECIMAL}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (SEQ_CUX_USER_ID.nextval, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{sex,jdbcType=VARCHAR}, #{age,jdbcType=DECIMAL}, #{phoneNumber,jdbcType=VARCHAR}, 
       #{creationDate,jdbcType=TIMESTAMP}, CURRENT_TIMESTAMP , #{comments,jdbcType=VARCHAR}
       )
@@ -61,9 +61,7 @@
   <insert id="insertSelective" parameterType="com.wcc.todo.entity.User" >
     insert into CUX_USERS
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        USER_ID,
-      </if>
+      USER_ID,
       <if test="userName != null" >
         USER_NAME,
       </if>
@@ -90,9 +88,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        #{userId,jdbcType=DECIMAL},
-      </if>
+      SEQ_CUX_USER_ID.nextval
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>
@@ -140,9 +136,7 @@
       <if test="creationDate != null" >
         CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="lastUpdateDate != null" >
-        LAST_UPDATE_DATE = CURRENT_TIMESTAMP ,
-      </if>
+      LAST_UPDATE_DATE = CURRENT_TIMESTAMP ,
       <if test="comments != null" >
         COMMENTS = #{comments,jdbcType=VARCHAR},
       </if>

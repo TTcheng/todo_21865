@@ -39,12 +39,12 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM (
-            SELECT ti.*,ROWNUM rn FROM CUX_TODO_ITEMS ti
-            WHERE USER_ID = #{userId,jdbcType=DECIMAL}
-            <![CDATA[
+        SELECT ti.*,ROWNUM rn FROM CUX_TODO_ITEMS ti
+        WHERE USER_ID = #{userId,jdbcType=DECIMAL}
+        <![CDATA[
                 ORDER by ${sort} ${order}
             ]]>
-        ) WHERE rn BETWEEN #{begin} AND  #{end }
+        ) WHERE rn BETWEEN #{begin} AND #{end }
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
         delete
@@ -55,16 +55,14 @@
         insert into CUX_TODO_ITEMS (TODO_ITEM_ID, USER_ID, TODO_ITEM_TITLE,
                                     TODO_ITEM_CONTENT, PRIORITY, CREATION_DATE,
                                     LAST_UPDATE_DATE, COMMENTS)
-        values (#{todoItemId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{todoItemTitle,jdbcType=VARCHAR},
+        values (SEQ_CUX_ITEM_ID.nextval, #{userId,jdbcType=DECIMAL}, #{todoItemTitle,jdbcType=VARCHAR},
                 #{todoItemContent,jdbcType=VARCHAR}, #{priority,jdbcType=VARCHAR},CURRENT_TIMESTAMP ,
                 CURRENT_TIMESTAMP, #{comments,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.wcc.todo.entity.TodoItem">
         insert into CUX_TODO_ITEMS
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="todoItemId != null">
-                TODO_ITEM_ID,
-            </if>
+            TODO_ITEM_ID,
             <if test="userId != null">
                 USER_ID,
             </if>
@@ -88,9 +86,7 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="todoItemId != null">
-                #{todoItemId,jdbcType=DECIMAL},
-            </if>
+            SEQ_CUX_ITEM_ID.nextval
             <if test="userId != null">
                 #{userId,jdbcType=DECIMAL},
             </if>
@@ -132,9 +128,7 @@
             <if test="creationDate != null">
                 CREATION_DATE = #{creationDate,jdbcType=TIMESTAMP},
             </if>
-            <if test="lastUpdateDate != null">
-                LAST_UPDATE_DATE = CURRENT_TIMESTAMP ,
-            </if>
+            LAST_UPDATE_DATE = CURRENT_TIMESTAMP ,
             <if test="comments != null">
                 COMMENTS = #{comments,jdbcType=VARCHAR},
             </if>
