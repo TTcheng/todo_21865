@@ -53,7 +53,7 @@
       SEX, AGE, PHONE_NUMBER, 
       CREATION_DATE, LAST_UPDATE_DATE, COMMENTS
       )
-    values (SEQ_CUX_USER_ID.nextval, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+    values (NULL , #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{sex,jdbcType=VARCHAR}, #{age,jdbcType=DECIMAL}, #{phoneNumber,jdbcType=VARCHAR}, 
       #{creationDate,jdbcType=TIMESTAMP}, CURRENT_TIMESTAMP , #{comments,jdbcType=VARCHAR}
       )
@@ -88,7 +88,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      SEQ_CUX_USER_ID.nextval
+      NULL
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>

@@ -4,47 +4,64 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
+    <!--<classPathEntry location="D:/Libraries/ojdbc6.jar"/>-->
+    <!--需要添加到classpath的jar/zip-->
     <classPathEntry
-            location="D:/Libraries/ojdbc6.jar"/>
+            location="/home/jesse/Develop/Environment/Maven/LocalRepository/mysql/mysql-connector-java/8.0.13/mysql-connector-java-8.0.13.jar"/>
     <context id="my" targetRuntime="MyBatis3">
+        <!--注释生成器-->
         <commentGenerator>
-            <property name="suppressDate" value="false"/>
-            <property name="suppressAllComments" value="true"/><!--生成注释-->
+            <!--false:向注释中添加时间戳-->
+            <property name="suppressDate" value="true"/>
+            <!--false:生成注释-->
+            <property name="suppressAllComments" value="false"/>
         </commentGenerator>
 
-        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
-                        connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:XE" userId="todo_mgr"
+        <!--数据源配置 jdbcConnection 或者 connectionFactory-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://132.232.181.189:3306/cux_todo" userId="todo_mgr"
                         password="hand"/>
 
         <!--生成entity-->
-        <javaModelGenerator targetPackage="com.wcc.todo.entity"
-                            targetProject="D:/Workspace/JavaWeb/todo_21865/src/main/java">
-                            <!--targetProject="src">-->
+        <javaModelGenerator targetPackage="com.wcc.todo.pojo"
+                            targetProject="/home/jesse/Workspace/TODO21865/src/main/java">
+            <!--targetProject="src">-->
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="false"/>
         </javaModelGenerator>
         <!--生成xml映射文件-->
         <sqlMapGenerator targetPackage="com.wcc.todo.sqlmap"
-                         targetProject="D:/Workspace/JavaWeb/todo_21865/src/main/java">
+                         targetProject="/home/jesse/Workspace/TODO21865/src/main/java">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!--生成mapper接口-->
-        <javaClientGenerator targetPackage="com.wcc.todo.dao"
-                             targetProject="D:/Workspace/JavaWeb/todo_21865/src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="com.wcc.todo.mapper"
+                             targetProject="/home/jesse/Workspace/TODO21865/src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <table tableName="CUX_TODO_ITEMS" domainObjectName="TodoItem"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"/>
+               selectByExampleQueryId="false">
+            <ignoreColumn column="CREATION_DATE" delimitedColumnName="false"/>
+            <ignoreColumn column="LAST_UPDATE_DATE" delimitedColumnName="false"/>
+            <ignoreColumn column="COMMENTS" delimitedColumnName="false"/>
+        </table>
 
         <table tableName="CUX_USERS" domainObjectName="User"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
-            <!--<columnRenamingRule searchString="^D_"
-                                replaceString=""/>-->
+            <ignoreColumn column="CREATION_DATE" delimitedColumnName="false"/>
+            <ignoreColumn column="LAST_UPDATE_DATE" delimitedColumnName="false"/>
+            <ignoreColumn column="COMMENTS" delimitedColumnName="false"/>
+            <!--表对象重命名规则-->
+            <!--<domainObjectRenamingRule searchString="^SYS_" replaceString=""/>-->
+            <!--列重命名规则-->
+            <!--<columnRenamingRule searchString="^XT_" replaceString=""/>--><!-- 替换系统字段为空串-->
+            <!--自定义列生成规则-->
+            <!--<columnOverride column="COMMENT" javaType="java.lang.String" jdbcType="VACHAR" property="重命名列" ></columnOverride>-->
         </table>
 
     </context>

@@ -33,3 +33,13 @@ function formatDateStr(str) {
     var split = str.split('T');
     return split[0].replace(/\-/g, '/') + " " + split[1].substr(0, 5);
 }
+
+/**
+ * convert {2018-12-07T09:52:16.000+0000} to date
+ * @param isoDateStr
+ * @returns {Date}
+ */
+function getIsoDate(isoDateStr) {
+    var split = isoDateStr.match(/\d+/g);
+    return new Date(split[0] + '-' + split[1] + '-' + split[2] + ' ' + split[3] + ':' + split[4] + ':' + split[5]);
+}

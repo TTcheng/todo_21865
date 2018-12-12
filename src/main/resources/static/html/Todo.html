@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="../css/nav.css"/>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>待办事项管理</title>
     <script>document.write('\<script src="../js/includeJs.js?r=' + Math.random() + '"\>\<\/script\>');</script>
     <script>document.write('\<script src="' + basePath + '/js/includeCss.js?v=' + localVersion + '"\>\<\/script\>');</script>
@@ -69,8 +70,8 @@
             type: 'post',
             // async: false,
             data: {
-                begin: 1,
-                end: 10
+                begin: 0,
+                rows: 10
             },
             dataType: 'json',
             success: function (res) {
@@ -189,7 +190,7 @@
             cache: false,
             url: requestUrl,
             data: {
-                // todoItemId: rows[index].todo_no,
+                todoItemId: rows[index].todo_no,
                 todoItemTitle: rows[index].todo_title,
                 todoItemContent: rows[index].todo_content,
                 priority: rows[index].todo_prior,

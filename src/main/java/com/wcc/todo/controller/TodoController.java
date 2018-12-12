@@ -30,11 +30,11 @@ public class TodoController extends BaseController {
      * 分页查询
      *
      * @param begin 开始条数
-     * @param end   结束条数
+     * @param rows   结束条数
      * @return items in model java.util.Map<String, Object>
      */
     @PostMapping("/queryPageList")
-    public Map<String, Object> queryPageList(Integer begin, Integer end) {
+    public Map<String, Object> queryPageList(Integer begin, Integer rows) {
         Map<String, Object> model = new HashMap<>();
         try {
             User user = (User) super.getSession().getAttribute("user");
@@ -43,7 +43,7 @@ public class TodoController extends BaseController {
             params.put("order", "ASC");
             params.put("sort", "TODO_ITEM_ID");
             params.put("begin", begin);
-            params.put("end", end);
+            params.put("rows", rows);
             List<BaseEntity> items = todoItemService.queryPageList(params);
             model.put(AppConst.STATUS, AppConst.SUCCESS);
             model.put(AppConst.DATA, items);

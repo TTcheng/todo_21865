@@ -38,13 +38,11 @@
     <select id="queryPageList" resultMap="BaseResultMap" parameterType="java.util.Map">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM (
-        SELECT ti.*,ROWNUM rn FROM CUX_TODO_ITEMS ti
+        FROM CUX_TODO_ITEMS ti
         WHERE USER_ID = #{userId,jdbcType=DECIMAL}
         <![CDATA[
-                ORDER by ${sort} ${order}
+                ORDER by ${sort} ${order} limit ${begin},${rows}
             ]]>
-        ) WHERE rn BETWEEN #{begin} AND #{end }
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
         delete
@@ -55,7 +53,7 @@
         insert into CUX_TODO_ITEMS (TODO_ITEM_ID, USER_ID, TODO_ITEM_TITLE,
                                     TODO_ITEM_CONTENT, PRIORITY, CREATION_DATE,
                                     LAST_UPDATE_DATE, COMMENTS)
-        values (SEQ_CUX_ITEM_ID.nextval, #{userId,jdbcType=DECIMAL}, #{todoItemTitle,jdbcType=VARCHAR},
+        values (NULL , #{userId,jdbcType=DECIMAL}, #{todoItemTitle,jdbcType=VARCHAR},
                 #{todoItemContent,jdbcType=VARCHAR}, #{priority,jdbcType=VARCHAR},CURRENT_TIMESTAMP ,
                 CURRENT_TIMESTAMP, #{comments,jdbcType=VARCHAR})
     </insert>
@@ -86,7 +84,7 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            SEQ_CUX_ITEM_ID.nextval
+            NULL
             <if test="userId != null">
                 #{userId,jdbcType=DECIMAL},
             </if>
