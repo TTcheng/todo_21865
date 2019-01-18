@@ -12,13 +12,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean isNumber(String string){
-        char[] chars = string.toCharArray();
-        for (char c : chars) {
-            if (!Character.isDigit(c)) {
-                return false;
-            }
-        }
-        return true;
+        return string.chars().allMatch(Character::isDigit);
     }
 
     /**
