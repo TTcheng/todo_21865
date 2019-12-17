@@ -43,6 +43,8 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
         </dependency>
 
     </dependencies>
@@ -76,12 +78,13 @@
                     <overwrite>true</overwrite>
                 </configuration>
                 <executions>
-                    <execution>
-                        <id>Generate MyBatis Artifacts</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
+                    <!-- 不需要编译时运行，手动执行 mvn mybatis-generator:generate 即可-->
+                    <!--<execution>-->
+                    <!--    <id>Generate MyBatis Artifacts</id>-->
+                    <!--    <goals>-->
+                    <!--        <goal>generate</goal>-->
+                    <!--    </goals>-->
+                    <!--</execution>-->
                 </executions>
                 <dependencies>
                     <dependency>
